@@ -11,7 +11,7 @@ class ProjSolver(BaseSolver):
         self.F = F
         self.G = G
         self.P = P
-        self.diagonal_matrix = torch.diag(torch.tensor(eigenvalues, dtype=torch.double))
+        self.diagonal_matrix = torch.diag(eigenvalues)
         self.integrator = integrator
 
     def get_du_dt(self, u: torch.Tensor):
