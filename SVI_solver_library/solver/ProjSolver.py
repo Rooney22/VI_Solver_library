@@ -11,13 +11,13 @@ class ProjSolver(BaseSolver):
         self.F = F
         self.G = G
         self.P = P
-        self.eigenvalues = eigenvalues
+        self.diagonal_matrix = torch.diag(torch.tensor(eigenvalues, dtype=torch.double))
         self.integrator = integrator
 
-    def get_dt(self, u: torch.Tensor):
+    def get_du_dt(self, u: torch.Tensor):
         f_u = self.F.transform(u)
         g_u = self.G.transform(u)
         return torch.matmul(self.diagonal_matrix, (self.P.transform(g_u-f_u) - g_u))
 
     def solve(self, u: torch.Tensor) -> torch.Tensor:
-        return self.integrator(u, self.get_dt)
+        return self.integrator(u, self.get_du_dt)

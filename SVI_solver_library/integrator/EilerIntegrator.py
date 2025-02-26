@@ -6,14 +6,14 @@ class EilerIntegrator():
         self.dt = dt
         self.max_iter = max_iter
 
-    def integrate(self, u: torch.Tensor, dt_getter:
+    def integrate(self, u: torch.Tensor, du_dt_getter:
                    Callable[[torch.tensor], torch.tensor]) -> torch.Tensor:
-        du_dt = dt_getter(u)
+        du_dt = du_dt_getter(u)
         u_last = u.clone().detach()
         u += self.dt * du_dt
         i = 1
         while i < self.max_iter and torch.sum(abs(u - u_last)) > max_dif:
-            du_dt = dt_getter(u)
+            du_dt = du_dt_getter(u)
             u_last = u.clone().detach()
             u += self.dt * du_dt
             i += 1
