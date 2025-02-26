@@ -2,10 +2,12 @@ import torch
 from SVI_solver_library.solver.BaseSolver import BaseSolver
 from SVI_solver_library.transform.BaseTransform import BaseTransform
 from SVI_solver_library.integrator.BaseIntegrator import BaseIntegrator
+from SVI_solver_library.integrator.EilerIntegrator import EilerIntegrator
+from SVI_solver_library.transform.EmptyTransform import EmptyTransform
 
 class ProjSolver(BaseSolver):
-    def __init__(self, F: BaseTransform, G: BaseTransform, P: BaseTransform,
-                eigenvalues: torch.Tensor, integrator: BaseIntegrator):
+    def __init__(self, F: BaseTransform, eigenvalues: torch.Tensor, P: BaseTransform = EmptyTransform(),
+                  G: BaseTransform = EmptyTransform(), integrator: BaseIntegrator = EilerIntegrator()):
         self.F = F
         self.G = G
         self.P = P
