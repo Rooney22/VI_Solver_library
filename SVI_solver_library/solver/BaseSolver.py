@@ -5,6 +5,6 @@ class BaseSolver():
     __metaclass__=ABCMeta
 
     @abstractmethod
-    def solve(u: torch.Tensor) -> torch.Tensor:
+    def solve(u: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
         """Решить уравнение"""
         pass
